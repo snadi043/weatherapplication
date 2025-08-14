@@ -1,7 +1,7 @@
 name: github-actions-react-app
 on: push
 jobs:
-  github-actions-react-application:
+  github-actions-react-application-test:
     runs-on: macos-latest
     steps:
       - name: Get code
@@ -14,3 +14,19 @@ jobs:
         run: npm ci
       - name: Run Tests
         run: npm test
+  github-actions-react-application-deploy:
+    runs-on: macos-latest
+    steps:
+      - name: Get code  
+        uses: actions/checkout@v5
+      - name: Install Node
+        uses: actions/setup-node
+        with: 
+          node-version: 23
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build Project
+        run: npm run Build
+      - name: Deploy Project
+        run: echo "Sucessfully Deploying Project..."
+

@@ -43,3 +43,6 @@ job:
 - In the above skelecton in the steps "run" is the keyword that specifies the actions for the events that gets triggered in the workflows.
 - There are multiple different "actions" developed by github and by other developers and it is highly recommended to visit the website marketplace to work with different actions in the project.
   Some of the other actions include "uses" and "with".
+
+- As earlier known from the githuc actions concept, a workflow can have multiple jobs and these jobs run parallely.
+-   
