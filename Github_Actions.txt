@@ -48,3 +48,7 @@ job:
 - Also, it is possible to make the jobs to run sequentially in the workflow but it has to be configured in a way that the second job has to have the reserved keyword "needs".
 - Also, let's say there is an issue in any of the jobs the next jobs doesn't get executed in a workflow.
 - It is also possible to trigger the workflow execution based on multiple events by configuring the "on" keyword.
+
+- In continuation, github actions also provides us with the concepts called "context" and "expressions".
+- Context in github actions refer to the metadata that github actions can generate for the developers to understand more about the workflow and additional information about the "jobs" and "steps" involved.
+- Expression are the functions that help to format the data provided by the context in the github actions. 
