@@ -1,5 +1,5 @@
 name: github-actions-react-app
-on: push
+on: [push, workflow_dispatch]
 jobs:
   github-actions-react-application-test:
     runs-on: macos-latest
