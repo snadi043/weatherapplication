@@ -40,3 +40,6 @@ job:
 
 - From the above skeleton until now, "name", "on", "job", "runs-on", "steps" and "run" all there words are reserved words in the "github actions" envrionment.
 - Only the "identifier" of the job is unreserved.
+- In the above skelecton in the steps "run" is the keyword that specifies the actions for the events that gets triggered in the workflows.
+- There are multiple different "actions" developed by github and by other developers and it is highly recommended to visit the website marketplace to work with different actions in the project.
+  Some of the other actions include "uses" and "with".
