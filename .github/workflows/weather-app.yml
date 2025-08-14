@@ -1,0 +1,10 @@
+name: weather-application-workflow
+on: workflow_dispatch
+jobs:
+  weather-application-job:
+    runs-on: macos-latest
+    steps:
+      - name: Print intial message
+        run: echo "Hello user. Good Morning."
+      - name: Print close up message
+        run: echo "Good bye user. Come back again."
