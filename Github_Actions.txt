@@ -1,1 +1,23 @@
+                                                                                    GITHUB ACTIONS
+- Github is the company that works with GIT internally and provides the developers with a tool named "Github" itself which mainly deals with maintaining the code repositories "locally" and also "remotely" for any application being developed to maintain updated backup in any environment, code reviews and bug fixes and many other useful and efficient features.
+- Github also developed a feature which plays a key role in developement lifecycle which is "CI/CD" and to achieve this "GITHUB ACTIONS"came into existance.
+- Github actions mainly focuses on automating the software developement process and helps the developers to identify and fix the issues in the early stages of the developemt process.
+- The main concepts of github actions include "WORKFLOWS", "JOBS" and "STEPS".
 
+WORKFLOWS:
+- Every repository in the Github tool is assigned with the "Github Actions" feature in the remote envrionment of Github web application.
+- So, every workflow is assigned to the a repository and this workflow can be configured in such a way that, it can be triggered on events which can be done manually and automatically.
+- Github also provides with important events from the software developement process by default which can be used to configure the "WORKFLOWS" or custom "WORKFLOWS" can also be developed.
+- Again, every "WORKFLOW" is integrated with "JOB" which takes care of creating the "STEPS" to be executed under this "WORKFLOW".
+- For a repository, there can be mumtiple "WORKFLOW" which can be assigned and executed paralley.
+
+JOBS:
+- "JOBS" are the integral part of "WORKFLOWS" and the main purpose of JOBS is to create "RUNNERS" which in other terms creates an environment for Github to perform its functionalities in different environments like (LINUX, WINDOWS and MACOS).
+- JOBS can be created in multipe numbers and each job can also have multiple "STEPS" to be executed parallely by default or can be modified to run sequentially.
+- Also, Jobs can be configured to be executed based on the filters which means that they can be executed based on the conditions provided automatically or manually.
+
+STEPS:
+- "STEPS" are the smallest and the core of the "GITHUB ACTIONS" which mainly involves in executing the responses for the "EVENTS" that are triggered in the "WORKFLOW".
+- STEPS are actually the "actions" that has to be done for the implementation of an event.
+- STEPS are execeuted in a sequential order and each job can have multiple steps and can be configured manually or automatically.
+- Github provides with in build steps which can be used in the process of "creating the pipelines" and helps the developers make their process easy.
