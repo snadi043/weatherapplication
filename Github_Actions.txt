@@ -44,5 +44,6 @@ job:
 - There are multiple different "actions" developed by github and by other developers and it is highly recommended to visit the website marketplace to work with different actions in the project.
   Some of the other actions include "uses" and "with".
 
-- As earlier known from the githuc actions concept, a workflow can have multiple jobs and these jobs run parallely.
--   
+- As earlier known from the githuc actions concept, a workflow can have multiple jobs and these jobs run parallely by default.
+- Also, it is possible to make the jobs to run sequentially in the workflow but it has to be configured in a way that the second job has to have the reserved keyword "needs".
+- Also, let's say there is an issue in any of the jobs the next jobs doesn't get executed in a workflow.
