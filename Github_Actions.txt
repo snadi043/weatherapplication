@@ -26,17 +26,17 @@ STEPS:
 - This repository "WEATHER APPLICATION" is an simple application build in "" but main focus would be on "GITHUB ACTIONS".
 - To implement "GITHUB ACTIONS", a YAML file has to be created which is the main entry point for the Github to understand the process of implementing "GITHUB ACTIONS" in the application.
 - This file is created in your application repository under ".github" extension folder and under "workflows" with "filename.yml".
-- Every workflow file starts with "name" of the workflow, then "on" is the event on which the workflow has to be triggered, "job" then "name of the job" and then followed by "runner" is the environment in which the process has to be implemented, then followed by "steps" which then consists of "name of the step" and subsequently the "value/action of the step".
+- Every workflow file starts with "name" of the workflow, then "on" is the event on which the workflow has to be triggered, "job" then "name of the job" and then followed by "runs-on" is the environment in which the process has to be implemented, then followed by "steps" which then consists of "name of the step" and subsequently the "value/action of the step".
 - The below format is the basic skeleton for the "github actions" yaml file.
 
 name: "name of the workflow"
 on: "event on which this workflow has to be activated"
 job:
   "name of the job":
-  runner: "name of the environment runner"
+  runs-on: "name of the environment runner"
   steps:
     -  name: "define a name for the step"
        run: "define the output for the above defined step"
 
-- From the above skeleton until now, "name", "on", "job", "runner", "steps" and "run" all there words are reserved words in the "github actions" envrionment.
+- From the above skeleton until now, "name", "on", "job", "runs-on", "steps" and "run" all there words are reserved words in the "github actions" envrionment.
 - Only the "identifier" of the job is unreserved.
