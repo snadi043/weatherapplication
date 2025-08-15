@@ -1,5 +1,10 @@
 name: weather-application-workflow
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - 'master'
+      - '01-github-actions-react-app-branch'
+  workflow_dispatch:
 jobs:
   weather-application-job:
     runs-on: macos-latest
