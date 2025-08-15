@@ -1,5 +1,11 @@
 name: github-actions-react-app
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - '01-github-actions-react-app-branch'
+    paths:
+      - '.github/**'
+  workflow_dispatch:
 jobs:
   github-actions-react-application-test:
     runs-on: macos-latest
