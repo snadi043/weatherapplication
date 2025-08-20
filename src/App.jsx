@@ -4,9 +4,9 @@ import logo from './assets/images/logo.png';
 function App() {
   return (
     <>
-      <header class="header">
+      <header className="header">
         <div id="logo-img">
-          <img src={logo} />
+          <img src={logo} alt="logo-react"/>
         </div>
         <h1>
           Learn React
