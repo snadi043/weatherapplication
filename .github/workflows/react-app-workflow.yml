@@ -58,10 +58,14 @@ jobs:
         if: failure() && steps.run-tests.outcome == 'failure'
         run: echo "TEST_ENV"
       - name: Upload the test artifacts.
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: upload-test-artifacts
-          path: upload-test.json
+          path: ./upload-test.json
+          if-no-files-found: warn
+          compression-level: 6
+          overwrite: false
+          include-hiddeb-files: false
       - name: Check the uploaded files.
         run: ls 
       - name: Finish the Test.
@@ -71,10 +75,14 @@ jobs:
     runs-on: 'macos-latest'
     steps:
       - name: Download the artifacts from the $"{{ WORKFLOW_ENV1 }}" job.
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: upload-test-artifacts
-          path: download-test.json
+          path: ./download-test.json
+          if-no-files-found: warn
+          compression-level: 6
+          overwrite: false
+          include-hiddeb-files: false
       - name: Check the downloaded files.
         run: ls
       - name: Get the code.
