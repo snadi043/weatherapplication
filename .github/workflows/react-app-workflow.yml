@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: upload-test-artifacts
-          path: test.json
+          path: upload-test.json
       - name: Check the uploaded files.
         run: ls 
       - name: Finish the Test.
@@ -74,6 +74,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: upload-test-artifacts
+          path: download-test.json
       - name: Check the downloaded files.
         run: ls
       - name: Get the code.
