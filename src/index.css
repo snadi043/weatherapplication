@@ -12,6 +12,10 @@ body {
   text-align: center;
 }
 
+.header{
+  display: none;
+}
+
 #logo-img {
   width: 7rem;
   height: 7rem;
