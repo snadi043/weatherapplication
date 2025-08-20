@@ -1,39 +1,131 @@
-name: github-actions-react-app
+name: react-app-workflow
 on:
   push:
     branches:
-      - '01-github-actions-react-app-branch'
-    paths:
-      - '.github/**'
-  workflow_dispatch:
+      - master
+      - 01-github-actions-react-app-branch
+env:
+  WORKFLOW_ENV1: Test
+  WORKFLOW_ENV2: Build
+  WORKFLOW_ENV3: Deploy
+  WORKFLOW_ENV4: Report
 jobs:
-  github-actions-react-application-test:
-    runs-on: macos-latest
+  lint:
+    runs-on: 'macos-latest'
     steps:
-      - name: Get code
-        uses: actions/checkout@v5
-      - name: Install Node
+      - name: Get the code.
+        uses: actions/checkout@v4
+      - name: Install Node.
         uses: actions/setup-node@v4
         with: 
           node-version: 23
-      - name: Install Dependencies
+      - name: Install all the dependencies.
+        run: npm install
+      - name: Install all the dependencies with sanity.
         run: npm ci
-      - name: Run Tests
-        run: npm test
-  github-actions-react-application-deploy:
-    needs: github-actions-react-application-test
-    runs-on: macos-latest
-    steps:
-      - name: Get code  
-        uses: actions/checkout@v5
-      - name: Install Node
-        uses: actions/setup-node
+      - name: Creating the most updated cache.
+        id: cache-npm-lint
+        uses: actions/cache@v4
         with: 
-          node-version: 23
-      - name: Install Dependencies
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+          run: npm list
+      - name: Finish Lint job.
+        run: echo "Finished the ${{WORKFLOW_ENV1}} Process Successfully."
+  test:
+    needs: lint
+    runs-on: 'macos-latest'
+    env:
+      TEST_ENV: Create Test Report.
+    steps:
+      - name: Get the code.
+        uses: actions/checkout@v4
+      - name: Check the use of previous npm cache from the Lint job.
+        if: steps.cache-npm-lint.outputs.cache-hit != 'true'
+        run: npm install
+      - name: Install all the dependencies with sanity.
         run: npm ci
-      - name: Build Project
-        run: npm run Build
-      - name: Deploy Project
-        run: echo "Sucessfully Deploying Project..."
+      - name: Create the most updated cache.
+        uses: actions/cache@v4
+        id: npm-cache-test
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Run the Tests
+        id: run-tests
+        run: npm run test
+      - name: Generate failing Test Report.
+        if: failure() && steps.run-tests.outcomes == 'failure'
+        run: echo "${{ TEST_ENV }}"
+      - name: Upload the test artifacts.
+        uses: actions/upload-artifacts@v3
+        with:
+          name: upload-test-artifacts
+          path: test.json
+      - name: Check the uploaded files.
+        run: ls 
+      - name: Finish the Test.
+        run: echo "Successfully completed the ${{ WORKFLOW_ENV2 }} job."
+  build:
+    needs: test
+    runs-on: 'macos-latest'
+    steps:
+      - name: Download the artifacts from the ${{ WORKFLOW_ENV1 }} job.
+        uses: actions/download-artifacts@v3
+        with:
+          name: upload-test-artifacts
+      - name: Check the downloaded files.
+        run: ls
+      - name: Get the code.
+        uses: actions/checkout@v4
+      - name: Check the use of previous npm cache from {{ WORKFLOW_ENV1 }} job.
+        if: steps.npm-cache-test.outputs.cache-hit != 'true'
+        run: npm install
+      - name: Install all the dependencies with sanity.
+        run: npm ci
+      - name: Create the most updated cache.
+        uses: actions/cache@v4
+        id: npm-cache-build
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Build the code.
+        run: npm run build
+      - name: Finish Build job.
+        run: echo "Successfully Finished the ${{ WORKFLOW_ENV3 }} Job."
+      - name: Get the Build Context from Github.
+        run: echo "${{ toJSON(github) }}"
+  deploy:
+    needs: build
+    runs-on: 'macos-latest'
+    steps:
+      - name: Get the code. 
+        uses: actions/checkout@v4
+      - name: Check the use of previous npm cache from {{ WORKFLOW_ENV2 }} job.
+        if: steps.npm-cache-test.outputs.cache-hit != 'true'
+        run: npm install
+      - name: Install all the dependencies with sanity.
+        run: npm ci
+      - name: Create the most updated cache.
+        uses: actions/cache@v4
+        id: npm-cache-deploy
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: echo "${{ STEP_ENV }}"
+        env:
+          STEP_ENV: Deploy the application.
+        run: echo "${{ WORKFLOW_ENV4 }} the application Successfully."
+      - name: Output the server host link.
+        run: echo $"{{http://localhost:/secrets.HOST_NAME/secrets.HOST_ID}}"
+  report:
+    needs: [lint, deploy]
+    runs-on: 'macos-latest'
+    steps:
+     - name: Create a Report.
+       if: failure()
+       run: |
+        echo "Something went wrong."
+        echo "${{ toJSON(github) }}"
 
+      
