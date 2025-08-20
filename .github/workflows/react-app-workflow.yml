@@ -123,10 +123,10 @@ jobs:
         with:
           path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: echo "STEP_ENV"
+      - name: echo $"{{STEP_ENV}}"
         env:
           STEP_ENV: Deploy the application.
-        run: echo $"{{ WORKFLOW_ENV4 }}" the application Successfully."
+        run: echo $"{{ WORKFLOW_ENV4 }}" the application Successfully.
       - name: Output the server host link.
         run: echo $"{{http://localhost:/secrets.HOST_NAME/secrets.HOST_ID}}"
   report:
