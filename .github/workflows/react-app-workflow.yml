@@ -61,7 +61,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: upload-test-artifacts
-          path: ./upload-test.json
+          path: 
+            ./upload-test.json
           if-no-files-found: warn
           compression-level: 6
           overwrite: false
@@ -78,7 +79,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: upload-test-artifacts
-          path: ./download-test.json
+          path: 
+            ./upload-test.json
           if-no-files-found: warn
           compression-level: 6
           overwrite: false
