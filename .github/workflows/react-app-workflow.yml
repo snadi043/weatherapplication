@@ -31,7 +31,7 @@ jobs:
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
           run: npm list
       - name: Finish Lint job.
-        run: echo Finished the $"{{WORKFLOW_ENV1}}" Process Successfully.
+        run: echo "Finished the "$WORKFLOW_ENV1" Process Successfully."
   test:
     needs: lint
     runs-on: 'macos-latest'
@@ -56,7 +56,7 @@ jobs:
         run: npm run test
       - name: Generate failing Test Report.
         if: failure() && steps.run-tests.outcome == 'failure'
-        run: echo $"{{TEST_ENV}}"
+        run: echo $"{{env.TEST_ENV}}"
       - name: Upload the test artifacts.
         uses: actions/upload-artifact@v4
         with:
@@ -70,12 +70,12 @@ jobs:
       - name: Check the uploaded files.
         run: ls 
       - name: Finish the Test.
-        run: echo Successfully completed the $"{{ WORKFLOW_ENV2 }}" job.
+        run: echo "Successfully completed the "$WORKFLOW_ENV1" job."
   build:
     needs: test
     runs-on: 'macos-latest'
     steps:
-      - name: Download the artifacts from the $"{{ WORKFLOW_ENV1 }}" job.
+      - name: Download the artifacts from the "$WORKFLOW_ENV1" job.
         uses: actions/download-artifact@v4
         with:
           name: upload-test-artifacts
@@ -89,7 +89,7 @@ jobs:
         run: ls
       - name: Get the code.
         uses: actions/checkout@v4
-      - name: Check the use of previous npm cache from $"{{ WORKFLOW_ENV1 }}" job.
+      - name: Check the use of previous npm cache from "$WORKFLOW_ENV1" job.
         if: steps.npm-cache-test.outputs.cache-hit != 'true'
         run: npm install
       - name: Install all the dependencies with sanity.
@@ -103,7 +103,7 @@ jobs:
       - name: Build the code.
         run: npm run build
       - name: Finish Build job.
-        run: echo Successfully Finished the $"{{ WORKFLOW_ENV3 }}" Job.
+        run: echo "Successfully Finished the "$WORKFLOW_ENV3" Job."
       - name: Get the Build Context from Github.
         run: echo "${{ toJSON(github) }}"
   deploy:
@@ -112,7 +112,7 @@ jobs:
     steps:
       - name: Get the code. 
         uses: actions/checkout@v4
-      - name: Check the use of previous npm cache from $"{{ WORKFLOW_ENV2 }}" job.
+      - name: Check the use of previous npm cache from "$WORKFLOW_ENV2" job.
         if: steps.npm-cache-test.outputs.cache-hit != 'true'
         run: npm install
       - name: Install all the dependencies with sanity.
@@ -123,12 +123,12 @@ jobs:
         with:
           path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: echo $"{{STEP_ENV}}"
+      - name: echo "$STEP_ENV"
         env:
           STEP_ENV: Deploy the application.
-        run: echo $"{{ WORKFLOW_ENV4 }}" the application Successfully.
+        run: echo "$WORKFLOW_ENV4" the application Successfully."
       - name: Output the server host link.
-        run: echo $"{{http://localhost:/secrets.HOST_NAME/secrets.HOST_ID}}"
+        run: echo "http://localhost:/${{secrets.HOST_NAME}}/${{secrets.HOST_ID}}"
   report:
     needs: [lint, deploy]
     runs-on: 'macos-latest'
