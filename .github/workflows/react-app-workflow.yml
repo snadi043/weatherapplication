@@ -55,7 +55,7 @@ jobs:
         id: run-tests
         run: npm run test
       - name: Generate failing Test Report.
-        if: failure() && steps.run-tests.outcomes == 'failure'
+        if: failure() && steps.run-tests.outcome == 'failure'
         run: echo "TEST_ENV"
       - name: Upload the test artifacts.
         uses: actions/upload-artifact@v4
