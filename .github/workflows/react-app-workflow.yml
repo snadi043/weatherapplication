@@ -130,7 +130,7 @@ jobs:
       - name: Output the server host link.
         run: echo "http://localhost:/${{secrets.HOST_NAME}}/${{secrets.HOST_ID}}"
   report:
-    needs: [lint, deploy]
+    # needs: [lint, deploy]
     runs-on: 'macos-latest'
     steps:
      - name: Create a Report.
