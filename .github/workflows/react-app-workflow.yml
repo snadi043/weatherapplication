@@ -31,7 +31,7 @@ jobs:
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
           run: npm list
       - name: Finish Lint job.
-        run: echo Finished the $"{{WORKFLOW_ENV1}}"" Process Successfully.
+        run: echo Finished the $"{{WORKFLOW_ENV1}}" Process Successfully.
   test:
     needs: lint
     runs-on: 'macos-latest'
@@ -103,7 +103,7 @@ jobs:
       - name: Build the code.
         run: npm run build
       - name: Finish Build job.
-        run: echo $"{{Successfully Finished the $"{{ WORKFLOW_ENV3 }}" Job.}}"
+        run: echo Successfully Finished the $"{{ WORKFLOW_ENV3 }}" Job.
       - name: Get the Build Context from Github.
         run: echo "${{ toJSON(github) }}"
   deploy:
