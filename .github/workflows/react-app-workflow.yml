@@ -132,7 +132,7 @@ jobs:
         run: echo "http://localhost:/${{secrets.HOST_NAME}}/${{secrets.HOST_ID}}"
   report:
     needs: [lint, deploy]
-    if: failure()
+    # if: failure()
     runs-on: 'macos-latest'
     steps:
      - name: Create a Report.
