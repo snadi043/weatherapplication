@@ -19,7 +19,7 @@ jobs:
       - name: Get the code.
         uses: actions/checkout@v4
       - name: Installing the Node from the reusable workflow.
-        uses: .github/workflows/react-node-install-reusable.yml
+        uses: snadi043/weatherapplication/.github/workflows/react-node-install-reusable.yml
       - name: Install all the dependencies.
         run: npm install
       - name: Install all the dependencies with sanity.
