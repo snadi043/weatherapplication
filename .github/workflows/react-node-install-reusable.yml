@@ -1,0 +1,15 @@
+name: react-node-install-reusable
+on: workflow_call
+jobs:
+  node-install-job:
+    runs-on: 'macos-latest'
+    strategy:
+      matrix:
+        node-version: [23, 24]
+        steps:
+          - name: Install Node.
+            uses: actions/setup-node@v4
+            with:
+              node-version: ${{ matrix.node-version }}
+          - name: Installing Node Successfull.
+            run: echo "Successfully Installed Node."

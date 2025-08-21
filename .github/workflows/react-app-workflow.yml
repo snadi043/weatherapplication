@@ -14,15 +14,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        node-version: [23, 24]
     runs-on: ${{matrix.os}}
     steps:
       - name: Get the code.
         uses: actions/checkout@v4
-      - name: Install Node.
-        uses: actions/setup-node@v4
-        with: 
-          node-version: ${{matrix.node-version}}
+      - name: Installing the Node from the reusable workflow.
+        uses: .github/workflows/react-node-install-reusable.yml
       - name: Install all the dependencies.
         run: npm install
       - name: Install all the dependencies with sanity.
@@ -140,7 +137,7 @@ jobs:
         run: echo "http://localhost:/${{secrets.HOST_NAME}}/${{secrets.HOST_ID}}"
   report:
     needs: [lint, deploy]
-    # if: failure()
+    if: failure()
     runs-on: 'macos-latest'
     steps:
      - name: Create a Report.
