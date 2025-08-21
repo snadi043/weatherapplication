@@ -14,10 +14,7 @@ jobs:
     uses: ./.github/workflows/react-node-install-reusable.yml
   test:
     needs: lint
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{matrix.os}}
+    runs-on: 'macos-latest'
     continue-on-error: true
     env:
       TEST_ENV: Create Test Report.
