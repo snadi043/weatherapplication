@@ -2,30 +2,30 @@ name: react-node-install-reusable
 on: workflow_call
 jobs:
   node-install-job:
-    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         node-version: [23, 24]
         os: [macos-latest, ubuntu-latest]
-        steps:
-          - name: Get the code.
-            uses: actions/checkout@v4
-          - name: Install Node.
-            uses: actions/setup-node@v4
-            with:
-              node-version: ${{ matrix.node-version }}
-          - name: Executing Reusable Workflow Successfull.
-            run: echo "Successfully Installed Node using reusable workflows."
-          - name: Install all the dependencies.
-            run: npm install
-          - name: Install all the dependencies with sanity.
-            run: npm ci
-          - name: Creating the most updated cache.
-            id: cache-npm-lint
-            uses: actions/cache@v4
-            with: 
-              path: node_modules
-              key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-              run: npm list
-          - name: Finish Lint job.
-            run: echo "Finished the "$WORKFLOW_ENV1" Process Successfully."
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Get the code.
+        uses: actions/checkout@v4
+      - name: Install Node.
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Executing Reusable Workflow Successfull.
+        run: echo "Successfully Installed Node using reusable workflows."
+      - name: Install all the dependencies.
+        run: npm install    
+      - name: Install all the dependencies with sanity.
+        run: npm ci
+      - name: Creating the most updated cache.
+        id: cache-npm-lint
+        uses: actions/cache@v4
+        with: 
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+          run: npm list
+      - name: Finish Lint job.
+        run: echo "Finished the "$WORKFLOW_ENV1" Process Successfully."
