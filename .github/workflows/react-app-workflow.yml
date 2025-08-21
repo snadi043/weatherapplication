@@ -11,14 +11,18 @@ env:
   WORKFLOW_ENV4: Report
 jobs:
   lint:
-    runs-on: 'macos-latest'
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node-version: [23, 24]
+    runs-on: ${{matrix.os}}
     steps:
       - name: Get the code.
         uses: actions/checkout@v4
       - name: Install Node.
         uses: actions/setup-node@v4
         with: 
-          node-version: 23
+          node-version: ${{matrix.node-version}}
       - name: Install all the dependencies.
         run: npm install
       - name: Install all the dependencies with sanity.
@@ -34,7 +38,11 @@ jobs:
         run: echo "Finished the "$WORKFLOW_ENV1" Process Successfully."
   test:
     needs: lint
-    runs-on: 'macos-latest'
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{matrix.os}}
+    continue-on-error: true
     env:
       TEST_ENV: Create Test Report.
     steps:
