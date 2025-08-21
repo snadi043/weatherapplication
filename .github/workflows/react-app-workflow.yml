@@ -11,7 +11,7 @@ env:
   WORKFLOW_ENV4: Report
 jobs:
   lint:
-    uses: snadi043/weatherapplication/.github/workflows/react-node-install-reusable.yml
+    uses: ./.github/workflows/react-node-install-reusable.yml
   test:
     needs: lint
     strategy:
